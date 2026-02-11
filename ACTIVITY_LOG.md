@@ -14,3 +14,4 @@
 - Entry style: short action statement in past tense
 - Scope: include file names or feature names when relevant
 - Initialized local Git repository and created first commit for project backup and GitHub sync.
+- Renamed Git branch from `master` to `main` to align with GitHub defaults.

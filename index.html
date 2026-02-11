@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cebu Haven Realty</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-shape bg-shape-a"></div>
+  <div class="bg-shape bg-shape-b"></div>
+
+  <header class="hero">
+    <nav class="top-nav">
+      <h1 class="brand">Cebu Haven Realty</h1>
+      <div class="nav-actions">
+        <a class="cta-link" href="#inquire">Schedule a Viewing</a>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">Dark Mode</button>
+      </div>
+    </nav>
+
+    <div class="hero-content">
+      <p class="eyebrow">Premium homes in Metro Cebu</p>
+      <h2>Find your next property in Lahug, Banilad, and Mandaue.</h2>
+      <p class="lead">Curated listings built for local buyers, OFWs, and long-term investors who want value near Cebu's growing business districts.</p>
+      <div class="hero-buttons">
+        <a href="#listings" class="button button-primary">Browse Listings</a>
+        <a href="#districts" class="button button-ghost">Explore Districts</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="listings" class="section">
+      <div class="section-heading">
+        <p class="eyebrow">Featured Listings</p>
+        <h3>Homes matched to Cebu lifestyles</h3>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <div class="pill">Condo</div>
+          <h4>2BR Condo in IT Park, Lahug</h4>
+          <p class="price">PHP 7,800,000</p>
+          <p>Walkable to offices, dining, and transport hubs. Ideal for professionals and rental income.</p>
+          <ul>
+            <li>2 Bedrooms</li>
+            <li>1 Bath</li>
+            <li>58 sqm</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="pill">Townhouse</div>
+          <h4>Modern Townhouse in Banilad</h4>
+          <p class="price">PHP 11,200,000</p>
+          <p>Quiet gated community with easy access to schools, malls, and major roads.</p>
+          <ul>
+            <li>3 Bedrooms</li>
+            <li>2 Baths</li>
+            <li>120 sqm lot</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="pill">Family Home</div>
+          <h4>Single Detached Home in Talamban</h4>
+          <p class="price">PHP 15,500,000</p>
+          <p>Spacious layout with garden space, suitable for growing families and future expansion.</p>
+          <ul>
+            <li>4 Bedrooms</li>
+            <li>3 Baths</li>
+            <li>220 sqm lot</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="districts" class="section district-panel">
+      <div>
+        <p class="eyebrow">Cebu District Guide</p>
+        <h3>Where buyers are looking now</h3>
+      </div>
+      <div class="district-grid">
+        <div>
+          <h4>Lahug</h4>
+          <p>Strong rental demand around IT Park and universities.</p>
+        </div>
+        <div>
+          <h4>Mandaue</h4>
+          <p>Strategic for mixed-use growth and transport access.</p>
+        </div>
+        <div>
+          <h4>Talisay</h4>
+          <p>Affordable options for first-time homeowners and families.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="inquire" class="section contact">
+      <div class="section-heading">
+        <p class="eyebrow">Inquire Today</p>
+        <h3>Let us shortlist homes for your budget</h3>
+      </div>
+
+      <form class="inquiry-form" id="inquiry-form">
+        <label>
+          Full Name
+          <input type="text" name="name" required />
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" required />
+        </label>
+        <label>
+          Preferred Budget
+          <select name="budget" required>
+            <option value="">Select range</option>
+            <option value="below5">Below PHP 5M</option>
+            <option value="5to10">PHP 5M - 10M</option>
+            <option value="10to15">PHP 10M - 15M</option>
+            <option value="above15">Above PHP 15M</option>
+          </select>
+        </label>
+        <button type="submit" class="button button-primary">Send Inquiry</button>
+      </form>
+      <p id="form-message" class="form-message" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Cebu Haven Realty. Serving Cebu City and nearby communities.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

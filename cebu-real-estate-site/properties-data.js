@@ -101,12 +101,12 @@ window.PROPERTIES = [
     searchLocation: "Talisay Cebu",
     mockLabel: "Talisay Parcel",
     mockTone: "tone-5",
-    coverPhoto: "assets/placeholders/talisay-lot-exterior.svg",
+    coverPhoto: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1400&q=80",
     interiorGallery: [
-      { label: "Model Living Room", url: "assets/placeholders/talisay-lot-living-room.svg" },
-      { label: "Model Bedroom", url: "assets/placeholders/talisay-lot-bedroom.svg" },
-      { label: "Model Bathroom", url: "assets/placeholders/talisay-lot-bathroom.svg" },
-      { label: "Model Kitchen", url: "assets/placeholders/talisay-lot-kitchen.svg" }
+      { label: "Model Living Room", url: "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=1400&q=80" },
+      { label: "Model Bedroom", url: "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1400&q=80" },
+      { label: "Model Bathroom", url: "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=1400&q=80" },
+      { label: "Model Kitchen", url: "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?auto=format&fit=crop&w=1400&q=80" }
     ]
   },
   {

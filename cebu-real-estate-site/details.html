@@ -14,7 +14,10 @@
 
   <header class="site-header">
     <div class="container nav-wrap">
-      <a class="brand" href="index.html">LV Realty</a>
+      <a class="brand" href="index.html">
+        <img src="logo-lv.svg" alt="LV Realty logo" class="brand-logo" />
+        <span class="brand-text">LV Realty</span>
+      </a>
       <nav class="main-nav" aria-label="Primary">
         <a href="index.html#top-picks">Listings</a>
         <a href="index.html#cities">Cities</a>
@@ -32,7 +35,7 @@
       <h1 id="property-title">Listing</h1>
     </div>
 
-    <section class="details-layout">
+    <section id="property-content" class="details-layout">
       <article class="listing-card">
         <div id="property-image" class="listing-image listing-image-large">Mock Image</div>
         <p id="property-price" class="price">PHP 0</p>
@@ -45,6 +48,13 @@
         <p class="details">Interested in this property? Request a curated shortlist or a viewing schedule with an LV Realty advisor.</p>
         <a class="button button-primary" href="index.html#inquire">Schedule Inquiry</a>
         <a class="button button-ghost" href="index.html#top-picks">Back to Listings</a>
+      </article>
+    </section>
+    <section id="not-found" class="not-found is-hidden">
+      <article class="listing-card">
+        <h2>Property Not Found</h2>
+        <p class="details">The listing you requested is unavailable or the link is invalid.</p>
+        <a class="button button-primary" href="index.html#top-picks">Browse All Properties</a>
       </article>
     </section>
   </main>

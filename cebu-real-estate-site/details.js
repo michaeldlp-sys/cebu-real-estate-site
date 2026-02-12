@@ -1,5 +1,7 @@
 const themeToggle = document.getElementById("theme-toggle");
 const properties = Array.isArray(window.PROPERTIES) ? window.PROPERTIES : [];
+const propertyContent = document.getElementById("property-content");
+const notFound = document.getElementById("not-found");
 
 const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 const savedTheme = localStorage.getItem("theme");
@@ -21,7 +23,7 @@ themeToggle.addEventListener("click", () => {
 
 const params = new URLSearchParams(window.location.search);
 const propertyKey = params.get("property");
-const property = properties.find((item) => item.slug === propertyKey) || properties[0];
+const property = properties.find((item) => item.slug === propertyKey);
 
 if (property) {
   setText("property-meta", `${property.typeLabel} | ${property.offerLabel}`);
@@ -31,6 +33,13 @@ if (property) {
   setText("property-specs", property.specs);
   setText("property-summary", property.summary);
   setMockImage(property);
+} else {
+  if (propertyContent) {
+    propertyContent.classList.add("is-hidden");
+  }
+  if (notFound) {
+    notFound.classList.remove("is-hidden");
+  }
 }
 
 function setTheme(theme) {

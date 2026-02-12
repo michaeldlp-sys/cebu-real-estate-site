@@ -7,9 +7,14 @@ const searchOffer = document.getElementById("search-offer");
 const searchType = document.getElementById("search-type");
 const searchLocation = document.getElementById("search-location");
 const searchPrice = document.getElementById("search-price");
+const clearFiltersButton = document.getElementById("clear-filters");
 const resultsCount = document.getElementById("results-count");
 const listingGrid = document.getElementById("listing-grid");
+const emptyState = document.getElementById("empty-state");
+const menuToggle = document.getElementById("menu-toggle");
+const mobileMenu = document.getElementById("mobile-menu");
 const quickLocationButtons = Array.from(document.querySelectorAll("[data-quick-location]"));
+const offerNavLinks = Array.from(document.querySelectorAll("[data-nav-offer]"));
 
 const properties = Array.isArray(window.PROPERTIES) ? window.PROPERTIES : [];
 let listingCards = [];
@@ -32,6 +37,15 @@ themeToggle.addEventListener("click", () => {
   localStorage.setItem("theme", nextTheme);
 });
 
+if (menuToggle && mobileMenu) {
+  menuToggle.addEventListener("click", () => {
+    const isOpen = !mobileMenu.classList.contains("is-hidden");
+    mobileMenu.classList.toggle("is-hidden", isOpen);
+    menuToggle.setAttribute("aria-expanded", isOpen ? "false" : "true");
+    menuToggle.textContent = isOpen ? "Menu" : "Close";
+  });
+}
+
 renderListings(properties);
 
 if (searchForm) {
@@ -41,10 +55,35 @@ if (searchForm) {
   });
 }
 
+if (clearFiltersButton) {
+  clearFiltersButton.addEventListener("click", () => {
+    searchOffer.value = "all";
+    searchType.value = "all";
+    searchLocation.value = "";
+    searchPrice.value = "0";
+    filterListings();
+  });
+}
+
 quickLocationButtons.forEach((button) => {
   button.addEventListener("click", () => {
     searchLocation.value = button.dataset.quickLocation || "";
     filterListings();
+  });
+});
+
+offerNavLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    const offer = link.dataset.navOffer;
+    if (offer) {
+      searchOffer.value = offer;
+      filterListings();
+    }
+    if (mobileMenu && menuToggle) {
+      mobileMenu.classList.add("is-hidden");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.textContent = "Menu";
+    }
   });
 });
 
@@ -110,6 +149,9 @@ function filterListings() {
   });
 
   resultsCount.textContent = `Showing ${visible} of ${listingCards.length} properties`;
+  if (emptyState) {
+    emptyState.classList.toggle("is-hidden", visible > 0);
+  }
 }
 
 function formatPrice(price, offer) {

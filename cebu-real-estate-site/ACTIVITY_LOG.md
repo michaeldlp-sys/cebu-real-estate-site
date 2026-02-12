@@ -1,6 +1,14 @@
 # Activity Log
 
 ## 2026-02-12
+- Added mobile navigation menu toggle and responsive mobile nav links.
+- Updated Buy/Rent navigation links to apply listing offer filters.
+- Added clear-filters button and empty-results state message on listing search.
+- Added details-page not-found state for invalid property slug requests.
+- Scaled header brand/logo responsively to improve nav balance across screen sizes.
+- Added `logo-lv.svg` brand asset and integrated it into both header navigation bars.
+- Updated `index.html` and `details.html` to render logo + brand text.
+- Updated `styles.css` with logo sizing/alignment rules for responsive display.
 - Added shared listing dataset in `properties-data.js` to use one source for cards and details.
 - Refactored `script.js` to render listing cards dynamically from the shared dataset.
 - Refactored `details.js` to load listing details from the same shared dataset.

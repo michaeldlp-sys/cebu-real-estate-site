@@ -2,10 +2,14 @@ const form = document.getElementById("inquiry-form");
 const message = document.getElementById("form-message");
 const themeToggle = document.getElementById("theme-toggle");
 
-const filterType = document.getElementById("filter-type");
-const filterBudget = document.getElementById("filter-budget");
+const searchForm = document.getElementById("property-search");
+const searchOffer = document.getElementById("search-offer");
+const searchType = document.getElementById("search-type");
+const searchLocation = document.getElementById("search-location");
+const searchPrice = document.getElementById("search-price");
 const resultsCount = document.getElementById("results-count");
 const listingCards = Array.from(document.querySelectorAll(".listing-card"));
+const quickLocationButtons = Array.from(document.querySelectorAll("[data-quick-location]"));
 
 const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 const savedTheme = localStorage.getItem("theme");
@@ -25,19 +29,30 @@ themeToggle.addEventListener("click", () => {
   localStorage.setItem("theme", nextTheme);
 });
 
+if (searchForm) {
+  searchForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    filterListings();
+  });
+}
+
+quickLocationButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    searchLocation.value = button.dataset.quickLocation || "";
+    filterListings();
+  });
+});
+
+if (listingCards.length > 0) {
+  filterListings();
+}
+
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   const name = form.elements["name"].value.trim();
-
   message.textContent = `Thanks, ${name}. A Cebu property advisor will contact you within 24 hours.`;
   form.reset();
 });
-
-if (filterType && filterBudget && resultsCount && listingCards.length > 0) {
-  filterType.addEventListener("change", updateListingResults);
-  filterBudget.addEventListener("change", updateListingResults);
-  updateListingResults();
-}
 
 function setTheme(theme) {
   document.body.dataset.theme = theme;
@@ -46,47 +61,32 @@ function setTheme(theme) {
   themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
 }
 
-function updateListingResults() {
-  const selectedType = filterType.value;
-  const selectedBudget = filterBudget.value;
+function filterListings() {
+  const selectedOffer = searchOffer.value;
+  const selectedType = searchType.value;
+  const selectedLocation = searchLocation.value.trim().toLowerCase();
+  const maxPrice = Number(searchPrice.value || 0);
 
-  let visibleCount = 0;
+  let visible = 0;
 
   listingCards.forEach((card) => {
+    const offer = card.dataset.offer || "";
     const type = card.dataset.type || "";
+    const location = (card.dataset.location || "").toLowerCase();
     const price = Number(card.dataset.price || 0);
 
-    const matchesType = selectedType === "all" || selectedType === type;
-    const matchesBudget = matchesBudgetRange(price, selectedBudget);
-    const isVisible = matchesType && matchesBudget;
+    const matchesOffer = selectedOffer === "all" || offer === selectedOffer;
+    const matchesType = selectedType === "all" || type === selectedType;
+    const matchesLocation = selectedLocation === "" || location.includes(selectedLocation);
+    const matchesPrice = maxPrice === 0 || price <= maxPrice;
 
-    card.classList.toggle("is-hidden", !isVisible);
+    const isMatch = matchesOffer && matchesType && matchesLocation && matchesPrice;
+    card.classList.toggle("is-hidden", !isMatch);
 
-    if (isVisible) {
-      visibleCount += 1;
+    if (isMatch) {
+      visible += 1;
     }
   });
 
-  const total = listingCards.length;
-  resultsCount.textContent = `Showing ${visibleCount} of ${total} listings`;
-}
-
-function matchesBudgetRange(price, budget) {
-  if (budget === "all") {
-    return true;
-  }
-
-  if (budget === "below10") {
-    return price < 10000000;
-  }
-
-  if (budget === "10to15") {
-    return price >= 10000000 && price <= 15000000;
-  }
-
-  if (budget === "above15") {
-    return price > 15000000;
-  }
-
-  return true;
+  resultsCount.textContent = `Showing ${visible} of ${listingCards.length} properties`;
 }

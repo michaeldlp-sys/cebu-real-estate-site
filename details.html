@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cebu Haven Realty | Property Details</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html">Cebu Haven Realty</a>
+      <nav class="main-nav" aria-label="Primary">
+        <a href="index.html#top-picks">Listings</a>
+        <a href="index.html#cities">Cities</a>
+        <a href="index.html#inquire">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">Dark Mode</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="section container">
+    <div class="section-head stacked">
+      <p class="eyebrow" id="property-meta">Property Details</p>
+      <h1 id="property-title">Listing</h1>
+    </div>
+
+    <section class="listing-grid" style="margin-top:1rem; grid-template-columns: 1.2fr 0.8fr;">
+      <article class="listing-card">
+        <p id="property-price" class="price">PHP 0</p>
+        <p id="property-location" class="location">Location</p>
+        <p id="property-specs" class="details">Specs</p>
+        <p id="property-summary" class="details">Description</p>
+      </article>
+      <article class="listing-card">
+        <h3 style="margin:0;">Next Step</h3>
+        <p class="details">Interested in this property? Request a curated shortlist or a viewing schedule with a Cebu advisor.</p>
+        <a class="button button-primary" href="index.html#inquire">Schedule Inquiry</a>
+        <a class="button button-ghost" href="index.html#top-picks">Back to Listings</a>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Cebu Haven Realty. Built for Cebu property search.</p>
+    </div>
+  </footer>
+
+  <script src="details.js"></script>
+</body>
+</html>

@@ -3,129 +3,195 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cebu Haven Realty</title>
+  <title>Cebu Haven Realty | Property Finder</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="bg-shape bg-shape-a"></div>
-  <div class="bg-shape bg-shape-b"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
 
-  <header class="hero">
-    <nav class="top-nav">
-      <h1 class="brand">Cebu Haven Realty</h1>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#">Cebu Haven Realty</a>
+      <nav class="main-nav" aria-label="Primary">
+        <a href="#top-picks">Buy</a>
+        <a href="#top-picks">Rent</a>
+        <a href="#cities">Cities</a>
+        <a href="#inquire">Contact</a>
+      </nav>
       <div class="nav-actions">
-        <a class="cta-link" href="#inquire">Schedule a Viewing</a>
         <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">Dark Mode</button>
-      </div>
-    </nav>
-
-    <div class="hero-content">
-      <p class="eyebrow">Premium homes in Metro Cebu</p>
-      <h2>Find your next property in Lahug, Banilad, and Mandaue.</h2>
-      <p class="lead">Curated listings built for local buyers, OFWs, and long-term investors who want value near Cebu's growing business districts.</p>
-      <div class="hero-buttons">
-        <a href="#listings" class="button button-primary">Browse Listings</a>
-        <a href="#districts" class="button button-ghost">Explore Districts</a>
       </div>
     </div>
   </header>
 
-  <main>
-    <section id="listings" class="section">
-      <div class="section-heading">
-        <p class="eyebrow">Featured Listings</p>
-        <h3>Homes matched to Cebu lifestyles</h3>
-      </div>
+  <section class="hero">
+    <div class="container hero-content">
+      <p class="eyebrow">Property Finder Philippines</p>
+      <h1>Search Cebu homes, condos, and lots in one place.</h1>
+      <p class="lead">A cleaner way to discover listings for sale or rent with local insights across Cebu City, Mandaue, Talisay, and nearby growth corridors.</p>
 
-      <form class="listing-controls" aria-label="Filter listings">
+      <form id="property-search" class="search-panel" aria-label="Property search">
+        <label>
+          Offer
+          <select id="search-offer" name="offer">
+            <option value="all">All</option>
+            <option value="sale">For Sale</option>
+            <option value="rent">For Rent</option>
+          </select>
+        </label>
         <label>
           Property Type
-          <select id="filter-type" name="filter-type">
-            <option value="all">All types</option>
-            <option value="condo">Condo</option>
+          <select id="search-type" name="type">
+            <option value="all">All</option>
+            <option value="house">House</option>
+            <option value="condo">Condominium</option>
             <option value="townhouse">Townhouse</option>
-            <option value="family-home">Family Home</option>
+            <option value="lot">Lot</option>
           </select>
         </label>
         <label>
-          Budget Range
-          <select id="filter-budget" name="filter-budget">
-            <option value="all">All budgets</option>
-            <option value="below10">Below PHP 10M</option>
-            <option value="10to15">PHP 10M - 15M</option>
-            <option value="above15">Above PHP 15M</option>
+          Location
+          <input id="search-location" name="location" type="text" placeholder="Cebu IT Park, Banilad, Mandaue..." />
+        </label>
+        <label>
+          Max Price
+          <select id="search-price" name="price">
+            <option value="0">No max</option>
+            <option value="5000000">Up to PHP 5M</option>
+            <option value="10000000">Up to PHP 10M</option>
+            <option value="15000000">Up to PHP 15M</option>
+            <option value="25000000">Up to PHP 25M</option>
           </select>
         </label>
+        <button class="button button-primary" type="submit">Search Properties</button>
       </form>
-      <p id="results-count" class="results-count" aria-live="polite"></p>
 
-      <div class="cards">
-        <article class="card listing-card" data-type="condo" data-price="7800000">
-          <div class="pill">Condo</div>
-          <h4>2BR Condo in IT Park, Lahug</h4>
+      <div class="quick-links">
+        <span>Popular:</span>
+        <button class="chip" data-quick-location="Cebu City" type="button">Cebu City</button>
+        <button class="chip" data-quick-location="Mandaue" type="button">Mandaue</button>
+        <button class="chip" data-quick-location="Talisay" type="button">Talisay</button>
+        <button class="chip" data-quick-location="Lapu-Lapu" type="button">Lapu-Lapu</button>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section id="top-picks" class="section container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Top Property Picks</p>
+          <h2>Featured listings in Metro Cebu</h2>
+        </div>
+        <p id="results-count" class="results-count" aria-live="polite"></p>
+      </div>
+
+      <div class="listing-grid">
+        <article class="listing-card" data-offer="sale" data-type="condo" data-location="Lahug Cebu City" data-price="7800000">
+          <p class="meta">Condominium | For Sale</p>
+          <h3>2BR Condo in IT Park</h3>
           <p class="price">PHP 7,800,000</p>
-          <p>Walkable to offices, dining, and transport hubs. Ideal for professionals and rental income.</p>
-          <ul>
-            <li>2 Bedrooms</li>
-            <li>1 Bath</li>
-            <li>58 sqm</li>
-          </ul>
+          <p class="location">Lahug, Cebu City</p>
+          <p class="details">58 sqm | 2 Bed | 1 Bath</p>
+          <a href="details.html?property=it-park-condo" class="button button-ghost">View Details</a>
         </article>
 
-        <article class="card listing-card" data-type="townhouse" data-price="11200000">
-          <div class="pill">Townhouse</div>
-          <h4>Modern Townhouse in Banilad</h4>
+        <article class="listing-card" data-offer="sale" data-type="townhouse" data-location="Banilad Cebu City" data-price="11200000">
+          <p class="meta">Townhouse | For Sale</p>
+          <h3>Modern Townhouse in Banilad</h3>
           <p class="price">PHP 11,200,000</p>
-          <p>Quiet gated community with easy access to schools, malls, and major roads.</p>
-          <ul>
-            <li>3 Bedrooms</li>
-            <li>2 Baths</li>
-            <li>120 sqm lot</li>
-          </ul>
+          <p class="location">Banilad, Cebu City</p>
+          <p class="details">120 sqm lot | 3 Bed | 2 Bath</p>
+          <a href="details.html?property=banilad-townhouse" class="button button-ghost">View Details</a>
         </article>
 
-        <article class="card listing-card" data-type="family-home" data-price="15500000">
-          <div class="pill">Family Home</div>
-          <h4>Single Detached Home in Talamban</h4>
+        <article class="listing-card" data-offer="sale" data-type="house" data-location="Talamban Cebu City" data-price="15500000">
+          <p class="meta">House | For Sale</p>
+          <h3>Single Detached Home in Talamban</h3>
           <p class="price">PHP 15,500,000</p>
-          <p>Spacious layout with garden space, suitable for growing families and future expansion.</p>
-          <ul>
-            <li>4 Bedrooms</li>
-            <li>3 Baths</li>
-            <li>220 sqm lot</li>
-          </ul>
+          <p class="location">Talamban, Cebu City</p>
+          <p class="details">220 sqm lot | 4 Bed | 3 Bath</p>
+          <a href="details.html?property=talamban-detached" class="button button-ghost">View Details</a>
+        </article>
+
+        <article class="listing-card" data-offer="rent" data-type="condo" data-location="Mabolo Cebu City" data-price="38000">
+          <p class="meta">Condominium | For Rent</p>
+          <h3>1BR Condo near Ayala</h3>
+          <p class="price">PHP 38,000 / month</p>
+          <p class="location">Mabolo, Cebu City</p>
+          <p class="details">46 sqm | 1 Bed | 1 Bath</p>
+          <a href="details.html?property=mabolo-ayala-rent" class="button button-ghost">View Details</a>
+        </article>
+
+        <article class="listing-card" data-offer="sale" data-type="lot" data-location="Talisay Cebu" data-price="6200000">
+          <p class="meta">Lot | For Sale</p>
+          <h3>Residential Lot in Talisay</h3>
+          <p class="price">PHP 6,200,000</p>
+          <p class="location">Talisay, Cebu</p>
+          <p class="details">310 sqm lot | Corner parcel</p>
+          <a href="details.html?property=talisay-lot" class="button button-ghost">View Details</a>
+        </article>
+
+        <article class="listing-card" data-offer="rent" data-type="house" data-location="Lapu-Lapu Cebu" data-price="55000">
+          <p class="meta">House | For Rent</p>
+          <h3>Family House near Mactan Newtown</h3>
+          <p class="price">PHP 55,000 / month</p>
+          <p class="location">Lapu-Lapu, Cebu</p>
+          <p class="details">180 sqm lot | 3 Bed | 2 Bath</p>
+          <a href="details.html?property=mactan-family-rent" class="button button-ghost">View Details</a>
         </article>
       </div>
     </section>
 
-    <section id="districts" class="section district-panel">
-      <div>
-        <p class="eyebrow">Cebu District Guide</p>
-        <h3>Where buyers are looking now</h3>
+    <section id="cities" class="section container">
+      <div class="section-head stacked">
+        <p class="eyebrow">Browse by Area</p>
+        <h2>Popular Cebu locations</h2>
       </div>
-      <div class="district-grid">
-        <div>
-          <h4>Lahug</h4>
-          <p>Strong rental demand around IT Park and universities.</p>
-        </div>
-        <div>
-          <h4>Mandaue</h4>
-          <p>Strategic for mixed-use growth and transport access.</p>
-        </div>
-        <div>
-          <h4>Talisay</h4>
-          <p>Affordable options for first-time homeowners and families.</p>
-        </div>
+      <div class="city-grid">
+        <article>
+          <h3>Cebu City</h3>
+          <p>Business districts, premium condos, and high rental demand.</p>
+        </article>
+        <article>
+          <h3>Mandaue</h3>
+          <p>Strategic central location with expanding mixed-use projects.</p>
+        </article>
+        <article>
+          <h3>Talisay</h3>
+          <p>Family-focused communities with strong value for buyers.</p>
+        </article>
+        <article>
+          <h3>Lapu-Lapu</h3>
+          <p>Island lifestyle near resorts, airport access, and new developments.</p>
+        </article>
       </div>
     </section>
 
-    <section id="inquire" class="section contact">
-      <div class="section-heading">
-        <p class="eyebrow">Inquire Today</p>
-        <h3>Let us shortlist homes for your budget</h3>
+    <section class="section container">
+      <div class="audience-grid">
+        <article>
+          <h3>For Buyers & Renters</h3>
+          <p>Discover updated listings and compare prices by district before scheduling viewings.</p>
+        </article>
+        <article>
+          <h3>For Sellers</h3>
+          <p>Reach qualified leads who are actively searching within your location and budget range.</p>
+        </article>
+        <article>
+          <h3>For Brokers</h3>
+          <p>Present listings with cleaner details and capture direct inquiries faster.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="inquire" class="section container contact">
+      <div class="section-head stacked">
+        <p class="eyebrow">Talk to an Advisor</p>
+        <h2>Request a curated shortlist</h2>
       </div>
 
       <form class="inquiry-form" id="inquiry-form">
@@ -153,8 +219,10 @@
     </section>
   </main>
 
-  <footer>
-    <p>© 2026 Cebu Haven Realty. Serving Cebu City and nearby communities.</p>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Cebu Haven Realty. Built for Cebu property search.</p>
+    </div>
   </footer>
 
   <script src="script.js"></script>

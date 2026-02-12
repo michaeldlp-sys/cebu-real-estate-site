@@ -1,6 +1,17 @@
 # Activity Log
 
 ## 2026-02-12
+- Added `details.html` property-detail template page to support listing-level navigation.
+- Added `details.js` to render listing-specific content from URL query parameters.
+- Updated listing card CTAs in `index.html` to route to `details.html` entries.
+- Restructured `index.html` into a property-portal format inspired by Real.ph patterns.
+- Added a search-first hero with offer/type/location/price controls and quick location chips.
+- Reworked listing presentation into marketplace-style cards with metadata and details CTA.
+- Added area-browse and audience sections to mirror modern real-estate marketplace information flow.
+- Replaced `styles.css` with a new portal-oriented visual system and responsive layout.
+- Replaced `script.js` listing filters with full search-form-driven filtering logic.
+
+## 2026-02-12
 - Added listing filter controls for property type and budget in `index.html`.
 - Added listing metadata attributes and live results count text for filtering.
 - Updated `script.js` with client-side filtering logic and visible listing count updates.

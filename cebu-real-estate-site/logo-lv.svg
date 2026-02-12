@@ -1,14 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="LV Realty logo">
   <defs>
-    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f6d27a"/>
-      <stop offset="50%" stop-color="#c9933d"/>
-      <stop offset="100%" stop-color="#ffe4a0"/>
+    <linearGradient id="gold" x1="8%" y1="8%" x2="92%" y2="92%">
+      <stop offset="0%" stop-color="#f7df93" />
+      <stop offset="48%" stop-color="#c8943e" />
+      <stop offset="100%" stop-color="#f2d27b" />
     </linearGradient>
   </defs>
-  <rect width="512" height="512" fill="#090909"/>
-  <circle cx="256" cy="256" r="224" fill="none" stroke="url(#gold)" stroke-width="20"/>
-  <path d="M146 168h24v-28h28v28h18l41-37 101 48-9 19-93-44-100 91h-10z" fill="url(#gold)"/>
-  <path d="M165 185h64v176h73v53H165z" fill="url(#gold)"/>
-  <path d="M264 185h71l26 123 26-123h58l-47 229h-62z" fill="url(#gold)"/>
+
+  <rect width="512" height="512" fill="#060606" />
+  <circle cx="256" cy="256" r="224" fill="none" stroke="url(#gold)" stroke-width="18" />
+
+  <path d="M150 194 L252 110 L366 184" fill="none" stroke="url(#gold)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M194 164 V128 H218 V184" fill="none" stroke="url(#gold)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+
+  <path d="M120 184 H174 V350 H236 V404 H120 Z" fill="url(#gold)" />
+  <path d="M228 184 H292 L320 346 L350 184 H414 L360 404 H280 Z" fill="url(#gold)" />
 </svg>

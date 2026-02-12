@@ -1,6 +1,9 @@
 # Activity Log
 
 ## 2026-02-12
+- Applied new brand palette (`#c49c4d`, `#e9ce98`, `#323232`, `#000000`, `#eed982`, `#c1a447`) across `styles.css`.
+- Updated light/dark theme tokens and component accents for a minimalist, elegant gold-charcoal look.
+- Reworked listing mock-image tones to match the new palette.
 - Added mobile navigation menu toggle and responsive mobile nav links.
 - Updated Buy/Rent navigation links to apply listing offer filters.
 - Added clear-filters button and empty-results state message on listing search.

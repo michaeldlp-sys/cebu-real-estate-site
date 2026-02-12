@@ -1,25 +1,25 @@
 :root {
-  --bg: #f5f8fc;
+  --bg: #f8f5ef;
   --panel: #ffffff;
-  --panel-2: #eef3fb;
-  --text: #142033;
-  --muted: #5e6d84;
-  --line: #d5deea;
-  --brand: #0d5bd7;
-  --brand-2: #0a4aaa;
-  --chip: #e4ecfb;
+  --panel-2: #f4ead4;
+  --text: #323232;
+  --muted: #5f5a50;
+  --line: #e9ce98;
+  --brand: #c49c4d;
+  --brand-2: #c1a447;
+  --chip: #eed982;
 }
 
 body[data-theme="dark"] {
-  --bg: #0d1522;
-  --panel: #121d2d;
-  --panel-2: #162438;
-  --text: #e6eefb;
-  --muted: #a7b4ca;
-  --line: #2a3a52;
-  --brand: #76a8ff;
-  --brand-2: #9fc2ff;
-  --chip: #1d2f4a;
+  --bg: #000000;
+  --panel: #171717;
+  --panel-2: #232323;
+  --text: #f4ead4;
+  --muted: #d5c39a;
+  --line: #323232;
+  --brand: #c49c4d;
+  --brand-2: #eed982;
+  --chip: #323232;
 }
 
 * {
@@ -38,8 +38,8 @@ body {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-image: linear-gradient(to right, rgba(79, 126, 201, 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(79, 126, 201, 0.08) 1px, transparent 1px);
+  background-image: linear-gradient(to right, rgba(196, 156, 77, 0.14) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(196, 156, 77, 0.12) 1px, transparent 1px);
   background-size: 36px 36px;
   mask-image: radial-gradient(circle at top, black 30%, transparent 78%);
 }
@@ -55,7 +55,7 @@ body {
   z-index: 20;
   backdrop-filter: blur(8px);
   background: color-mix(in srgb, var(--bg) 86%, transparent);
-  border-bottom: 1px solid color-mix(in srgb, var(--line) 65%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 78%, transparent);
 }
 
 .nav-wrap {
@@ -228,7 +228,7 @@ select {
 
 .button-primary {
   background: var(--brand);
-  color: #fff;
+  color: #1a1a1a;
 }
 
 .button-primary:hover {
@@ -322,7 +322,7 @@ main {
   border: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
   display: grid;
   place-items: center;
-  color: #ffffff;
+  color: #fffdf8;
   font-weight: 700;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -334,27 +334,27 @@ main {
 }
 
 .tone-1 {
-  background: linear-gradient(135deg, #1b4d89, #5da0d3);
+  background: linear-gradient(135deg, #c49c4d, #c1a447);
 }
 
 .tone-2 {
-  background: linear-gradient(135deg, #86461f, #d4944f);
+  background: linear-gradient(135deg, #b58f45, #e9ce98);
 }
 
 .tone-3 {
-  background: linear-gradient(135deg, #1f6b5c, #49a18e);
+  background: linear-gradient(135deg, #323232, #5a5a5a);
 }
 
 .tone-4 {
-  background: linear-gradient(135deg, #4a2f7e, #7f66c8);
+  background: linear-gradient(135deg, #c1a447, #eed982);
 }
 
 .tone-5 {
-  background: linear-gradient(135deg, #64683d, #9fa659);
+  background: linear-gradient(135deg, #323232, #c49c4d);
 }
 
 .tone-6 {
-  background: linear-gradient(135deg, #0e5775, #4ea7c8);
+  background: linear-gradient(135deg, #000000, #323232);
 }
 
 .meta {

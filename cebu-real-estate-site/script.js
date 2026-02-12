@@ -18,6 +18,7 @@ const offerNavLinks = Array.from(document.querySelectorAll("[data-nav-offer]"));
 
 const properties = Array.isArray(window.PROPERTIES) ? window.PROPERTIES : [];
 let listingCards = [];
+const IMAGE_FALLBACK = "https://images.unsplash.com/photo-1560184897-ae75f418493e?auto=format&fit=crop&w=1400&q=80";
 
 const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 const savedTheme = localStorage.getItem("theme");
@@ -104,9 +105,13 @@ function renderListings(items) {
   }
 
   const html = items.map((property) => {
+    const coverPhoto = property.coverPhoto || "";
+    const visual = coverPhoto
+      ? `<a href="details.html?property=${property.slug}" class="photo-link"><img class="listing-photo" src="${coverPhoto}" alt="${property.title} exterior preview" loading="lazy" onerror="this.onerror=null;this.src='${IMAGE_FALLBACK}';" /></a>`
+      : `<div class="listing-image ${property.mockTone}">${property.mockLabel}</div>`;
     return `
       <article class="listing-card" data-offer="${property.offer}" data-type="${property.type}" data-location="${property.searchLocation}" data-price="${property.price}">
-        <div class="listing-image ${property.mockTone}">${property.mockLabel}</div>
+        ${visual}
         <p class="meta">${property.typeLabel} | ${property.offerLabel}</p>
         <h3>${property.title}</h3>
         <p class="price">${formatPrice(property.price, property.offer)}</p>

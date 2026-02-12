@@ -1,6 +1,18 @@
 # Activity Log
 
 ## 2026-02-12
+- Updated all listing interior galleries to unique photo sets (no shared detail photos across listings).
+- Replaced invalid/duplicate listing cover URLs with 6 unique verified exterior photos.
+- Added image-fallback handling in `script.js` and `details.js` for robust media loading.
+- Replaced inconsistent gallery photos with verified room-specific no-people images.
+- Standardized listing media structure to `coverPhoto` (exterior) + `interiorGallery` (Living Room/Bedroom/Bathroom/Kitchen/Common Area).
+- Updated listing media model to separate `coverPhoto` (exterior preview) from `interiorGallery` (Living Room, Bedroom, Bathroom, Kitchen/Common Area).
+- Updated listing cards so preview photo opens details and consistently shows property exterior.
+- Updated details gallery to focus on interior spaces with labeled thumbnails and captioned main image.
+- Added 4-photo gallery URLs per listing in `properties-data.js`, based on property type and listing context.
+- Updated listing cards to render cover photos from listing gallery data.
+- Updated `details.html` and `details.js` to show 4 selectable gallery photos per listing.
+- Added gallery and thumbnail styles in `styles.css` for realistic property-photo presentation.
 - Applied new brand palette (`#c49c4d`, `#e9ce98`, `#323232`, `#000000`, `#eed982`, `#c1a447`) across `styles.css`.
 - Updated light/dark theme tokens and component accents for a minimalist, elegant gold-charcoal look.
 - Reworked listing mock-image tones to match the new palette.

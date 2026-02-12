@@ -1,6 +1,11 @@
 # Activity Log
 
 ## 2026-02-12
+- Added shared listing dataset in `properties-data.js` to use one source for cards and details.
+- Refactored `script.js` to render listing cards dynamically from the shared dataset.
+- Refactored `details.js` to load listing details from the same shared dataset.
+- Added mock listing image blocks and style variants in `styles.css` for no-photo state.
+- Moved `details.html` and `details.js` into the app folder to fix relative linking from `index.html`.
 - Added `details.html` property-detail template page to support listing-level navigation.
 - Added `details.js` to render listing-specific content from URL query parameters.
 - Updated listing card CTAs in `index.html` to route to `details.html` entries.

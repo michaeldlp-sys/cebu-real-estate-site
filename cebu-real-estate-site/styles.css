@@ -295,7 +295,7 @@ main {
 .listing-grid {
   margin-top: 1rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.9rem;
 }
 
@@ -460,6 +460,10 @@ main {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .listing-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .details-layout {
     grid-template-columns: 1fr;
   }
@@ -485,6 +489,10 @@ main {
   }
 
   .search-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .listing-grid {
     grid-template-columns: 1fr;
   }
 

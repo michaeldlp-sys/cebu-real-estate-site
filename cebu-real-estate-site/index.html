@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -40,8 +40,30 @@
         <h3>Homes matched to Cebu lifestyles</h3>
       </div>
 
+      <form class="listing-controls" aria-label="Filter listings">
+        <label>
+          Property Type
+          <select id="filter-type" name="filter-type">
+            <option value="all">All types</option>
+            <option value="condo">Condo</option>
+            <option value="townhouse">Townhouse</option>
+            <option value="family-home">Family Home</option>
+          </select>
+        </label>
+        <label>
+          Budget Range
+          <select id="filter-budget" name="filter-budget">
+            <option value="all">All budgets</option>
+            <option value="below10">Below PHP 10M</option>
+            <option value="10to15">PHP 10M - 15M</option>
+            <option value="above15">Above PHP 15M</option>
+          </select>
+        </label>
+      </form>
+      <p id="results-count" class="results-count" aria-live="polite"></p>
+
       <div class="cards">
-        <article class="card">
+        <article class="card listing-card" data-type="condo" data-price="7800000">
           <div class="pill">Condo</div>
           <h4>2BR Condo in IT Park, Lahug</h4>
           <p class="price">PHP 7,800,000</p>
@@ -53,7 +75,7 @@
           </ul>
         </article>
 
-        <article class="card">
+        <article class="card listing-card" data-type="townhouse" data-price="11200000">
           <div class="pill">Townhouse</div>
           <h4>Modern Townhouse in Banilad</h4>
           <p class="price">PHP 11,200,000</p>
@@ -65,7 +87,7 @@
           </ul>
         </article>
 
-        <article class="card">
+        <article class="card listing-card" data-type="family-home" data-price="15500000">
           <div class="pill">Family Home</div>
           <h4>Single Detached Home in Talamban</h4>
           <p class="price">PHP 15,500,000</p>

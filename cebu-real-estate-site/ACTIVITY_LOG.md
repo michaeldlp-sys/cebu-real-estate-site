@@ -1,4 +1,10 @@
-﻿# Activity Log
+# Activity Log
+
+## 2026-02-12
+- Added listing filter controls for property type and budget in `index.html`.
+- Added listing metadata attributes and live results count text for filtering.
+- Updated `script.js` with client-side filtering logic and visible listing count updates.
+- Updated `styles.css` with filter control layout and hidden-card styling.
 
 ## 2026-02-11
 - Created project folder: `cebu-real-estate-site`.

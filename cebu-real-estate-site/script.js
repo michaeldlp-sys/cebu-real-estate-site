@@ -18,7 +18,7 @@ const offerNavLinks = Array.from(document.querySelectorAll("[data-nav-offer]"));
 
 const properties = Array.isArray(window.PROPERTIES) ? window.PROPERTIES : [];
 let listingCards = [];
-const IMAGE_FALLBACK = "https://images.unsplash.com/photo-1560184897-ae75f418493e?auto=format&fit=crop&w=1400&q=80";
+const IMAGE_FALLBACK = "assets/placeholders/fallback-property.svg";
 
 const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 const savedTheme = localStorage.getItem("theme");
@@ -104,25 +104,75 @@ function renderListings(items) {
     return;
   }
 
-  const html = items.map((property) => {
-    const coverPhoto = property.coverPhoto || "";
-    const visual = coverPhoto
-      ? `<a href="details.html?property=${property.slug}" class="photo-link"><img class="listing-photo" src="${coverPhoto}" alt="${property.title} exterior preview" loading="lazy" onerror="this.onerror=null;this.src='${IMAGE_FALLBACK}';" /></a>`
-      : `<div class="listing-image ${property.mockTone}">${property.mockLabel}</div>`;
-    return `
-      <article class="listing-card" data-offer="${property.offer}" data-type="${property.type}" data-location="${property.searchLocation}" data-price="${property.price}">
-        ${visual}
-        <p class="meta">${property.typeLabel} | ${property.offerLabel}</p>
-        <h3>${property.title}</h3>
-        <p class="price">${formatPrice(property.price, property.offer)}</p>
-        <p class="location">${property.location}</p>
-        <p class="details">${property.specs}</p>
-        <a href="details.html?property=${property.slug}" class="button button-ghost">View Details</a>
-      </article>
-    `;
-  }).join("");
+  listingGrid.textContent = "";
 
-  listingGrid.innerHTML = html;
+  items.forEach((property) => {
+    const card = document.createElement("article");
+    card.className = "listing-card";
+    card.dataset.offer = property.offer;
+    card.dataset.type = property.type;
+    card.dataset.location = property.searchLocation;
+    card.dataset.price = String(property.price);
+
+    const detailsHref = `details.html?property=${encodeURIComponent(property.slug)}`;
+    const coverPhoto = property.coverPhoto || "";
+
+    if (coverPhoto) {
+      const photoLink = document.createElement("a");
+      photoLink.href = detailsHref;
+      photoLink.className = "photo-link";
+
+      const image = document.createElement("img");
+      image.className = "listing-photo";
+      image.src = coverPhoto;
+      image.alt = `${property.title} exterior preview`;
+      image.loading = "lazy";
+      image.addEventListener("error", () => {
+        image.src = IMAGE_FALLBACK;
+      }, { once: true });
+
+      photoLink.appendChild(image);
+      card.appendChild(photoLink);
+    } else {
+      const visual = document.createElement("div");
+      visual.className = `listing-image ${property.mockTone}`;
+      visual.textContent = property.mockLabel;
+      card.appendChild(visual);
+    }
+
+    const meta = document.createElement("p");
+    meta.className = "meta";
+    meta.textContent = `${property.typeLabel} | ${property.offerLabel}`;
+    card.appendChild(meta);
+
+    const title = document.createElement("h3");
+    title.textContent = property.title;
+    card.appendChild(title);
+
+    const price = document.createElement("p");
+    price.className = "price";
+    price.textContent = formatPrice(property.price, property.offer);
+    card.appendChild(price);
+
+    const location = document.createElement("p");
+    location.className = "location";
+    location.textContent = property.location;
+    card.appendChild(location);
+
+    const specs = document.createElement("p");
+    specs.className = "details";
+    specs.textContent = property.specs;
+    card.appendChild(specs);
+
+    const detailsLink = document.createElement("a");
+    detailsLink.href = detailsHref;
+    detailsLink.className = "button button-ghost";
+    detailsLink.textContent = "View Details";
+    card.appendChild(detailsLink);
+
+    listingGrid.appendChild(card);
+  });
+
   listingCards = Array.from(document.querySelectorAll(".listing-card"));
 }
 
@@ -170,3 +220,4 @@ function setTheme(theme) {
   themeToggle.textContent = isDark ? "Light Mode" : "Dark Mode";
   themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
 }
+

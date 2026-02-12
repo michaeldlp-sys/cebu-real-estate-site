@@ -11,9 +11,10 @@ const lightboxCaption = document.getElementById("lightbox-caption");
 const lightboxClose = document.getElementById("lightbox-close");
 const lightboxPrev = document.getElementById("lightbox-prev");
 const lightboxNext = document.getElementById("lightbox-next");
-const IMAGE_FALLBACK = "https://images.unsplash.com/photo-1560184897-ae75f418493e?auto=format&fit=crop&w=1400&q=80";
+const IMAGE_FALLBACK = "assets/placeholders/fallback-property.svg";
 let activePhotos = [];
 let activePhotoIndex = 0;
+let lastFocusedElement = null;
 
 const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 const savedTheme = localStorage.getItem("theme");
@@ -81,38 +82,43 @@ function setGallery(property) {
     return;
   }
 
-  propertyImage.src = photos[0].url;
-  propertyImage.onerror = () => {
-    propertyImage.src = IMAGE_FALLBACK;
-  };
-  propertyImage.alt = `${property.title} photo 1`;
-  if (propertyPhotoCaption) {
-    propertyPhotoCaption.textContent = photos[0].label;
-  }
+  setMainPhoto(0, property.title);
   propertyImage.style.cursor = "zoom-in";
-  propertyImage.addEventListener("click", () => openLightbox(0, property.title));
+  propertyImage.addEventListener("click", () => openLightbox(activePhotoIndex, property.title));
 
   if (!propertyGallery) {
     return;
   }
 
-  const thumbs = photos.map((photo, index) => {
-    const isActive = index === 0 ? "is-active" : "";
-    return `
-      <button class="photo-thumb ${isActive}" type="button" data-photo-index="${index}" aria-label="View photo ${index + 1}">
-        <img src="${photo.url}" alt="${photo.label} thumbnail" loading="lazy" onerror="this.onerror=null;this.src='${IMAGE_FALLBACK}';" />
-        <span>${photo.label}</span>
-      </button>
-    `;
-  }).join("");
+  propertyGallery.textContent = "";
+  photos.forEach((photo, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = `photo-thumb ${index === 0 ? "is-active" : ""}`;
+    button.dataset.photoIndex = String(index);
+    button.setAttribute("aria-label", `View photo ${index + 1}`);
 
-  propertyGallery.innerHTML = thumbs;
+    const thumbImage = document.createElement("img");
+    thumbImage.src = photo.url;
+    thumbImage.alt = `${photo.label} thumbnail`;
+    thumbImage.loading = "lazy";
+    thumbImage.addEventListener("error", () => {
+      thumbImage.src = IMAGE_FALLBACK;
+    }, { once: true });
+
+    const label = document.createElement("span");
+    label.textContent = photo.label;
+
+    button.appendChild(thumbImage);
+    button.appendChild(label);
+    propertyGallery.appendChild(button);
+  });
 
   const thumbButtons = Array.from(propertyGallery.querySelectorAll(".photo-thumb"));
   thumbButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const photoIndex = Number(button.dataset.photoIndex || 0);
-      openLightbox(photoIndex, property.title);
+      setMainPhoto(photoIndex, property.title);
     });
   });
 }
@@ -148,14 +154,21 @@ document.addEventListener("keydown", (event) => {
 
   if (event.key === "Escape") {
     closeLightbox();
+    return;
   }
 
   if (event.key === "ArrowLeft") {
     showLightboxPhoto(activePhotoIndex - 1);
+    return;
   }
 
   if (event.key === "ArrowRight") {
     showLightboxPhoto(activePhotoIndex + 1);
+    return;
+  }
+
+  if (event.key === "Tab") {
+    trapLightboxFocus(event);
   }
 });
 
@@ -164,10 +177,14 @@ function openLightbox(index, title) {
     return;
   }
 
+  lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
   lightbox.classList.remove("is-hidden");
   lightbox.dataset.title = title;
   document.body.style.overflow = "hidden";
   showLightboxPhoto(index);
+  if (lightboxClose) {
+    lightboxClose.focus();
+  }
 }
 
 function closeLightbox() {
@@ -177,6 +194,9 @@ function closeLightbox() {
 
   lightbox.classList.add("is-hidden");
   document.body.style.overflow = "";
+  if (lastFocusedElement) {
+    lastFocusedElement.focus();
+  }
 }
 
 function showLightboxPhoto(index) {
@@ -196,6 +216,65 @@ function showLightboxPhoto(index) {
   const title = lightbox && lightbox.dataset.title ? lightbox.dataset.title : "Property";
 
   lightboxImage.src = current.url;
+  lightboxImage.onerror = () => {
+    lightboxImage.onerror = null;
+    lightboxImage.src = IMAGE_FALLBACK;
+  };
   lightboxImage.alt = `${title} ${current.label}`;
   lightboxCaption.textContent = current.label;
 }
+
+function setMainPhoto(index, title) {
+  if (!propertyImage || activePhotos.length === 0) {
+    return;
+  }
+
+  const boundedIndex = Math.max(0, Math.min(index, activePhotos.length - 1));
+  activePhotoIndex = boundedIndex;
+  const current = activePhotos[activePhotoIndex];
+
+  propertyImage.src = current.url;
+  propertyImage.onerror = () => {
+    propertyImage.onerror = null;
+    propertyImage.src = IMAGE_FALLBACK;
+  };
+  propertyImage.alt = `${title} ${current.label}`;
+  if (propertyPhotoCaption) {
+    propertyPhotoCaption.textContent = current.label;
+  }
+
+  if (propertyGallery) {
+    const thumbButtons = Array.from(propertyGallery.querySelectorAll(".photo-thumb"));
+    thumbButtons.forEach((button, thumbIndex) => {
+      button.classList.toggle("is-active", thumbIndex === activePhotoIndex);
+    });
+  }
+}
+
+function trapLightboxFocus(event) {
+  if (!lightbox) {
+    return;
+  }
+
+  const focusable = Array.from(
+    lightbox.querySelectorAll("button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex='-1'])")
+  ).filter((element) => !element.hasAttribute("hidden"));
+
+  if (focusable.length === 0) {
+    event.preventDefault();
+    return;
+  }
+
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  const activeElement = document.activeElement;
+
+  if (!event.shiftKey && activeElement === last) {
+    event.preventDefault();
+    first.focus();
+  } else if (event.shiftKey && activeElement === first) {
+    event.preventDefault();
+    last.focus();
+  }
+}
+

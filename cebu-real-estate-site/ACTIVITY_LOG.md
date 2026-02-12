@@ -1,6 +1,9 @@
 # Activity Log
 
 ## 2026-02-12
+- Added lightbox-style floating photo viewer on details page with larger image display.
+- Added left/right navigation, close control, and keyboard shortcuts (`Esc`, left/right arrows) for gallery browsing.
+- Updated thumbnail click behavior to open selected image directly in the viewer.
 - Updated all listing interior galleries to unique photo sets (no shared detail photos across listings).
 - Replaced invalid/duplicate listing cover URLs with 6 unique verified exterior photos.
 - Added image-fallback handling in `script.js` and `details.js` for robust media loading.

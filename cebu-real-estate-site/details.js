@@ -5,7 +5,15 @@ const notFound = document.getElementById("not-found");
 const propertyImage = document.getElementById("property-image");
 const propertyPhotoCaption = document.getElementById("property-photo-caption");
 const propertyGallery = document.getElementById("property-gallery");
+const lightbox = document.getElementById("photo-lightbox");
+const lightboxImage = document.getElementById("lightbox-image");
+const lightboxCaption = document.getElementById("lightbox-caption");
+const lightboxClose = document.getElementById("lightbox-close");
+const lightboxPrev = document.getElementById("lightbox-prev");
+const lightboxNext = document.getElementById("lightbox-next");
 const IMAGE_FALLBACK = "https://images.unsplash.com/photo-1560184897-ae75f418493e?auto=format&fit=crop&w=1400&q=80";
+let activePhotos = [];
+let activePhotoIndex = 0;
 
 const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 const savedTheme = localStorage.getItem("theme");
@@ -67,6 +75,7 @@ function formatPrice(price, offer) {
 
 function setGallery(property) {
   const photos = Array.isArray(property.interiorGallery) ? property.interiorGallery.slice(0, 4) : [];
+  activePhotos = photos;
 
   if (!propertyImage || photos.length === 0) {
     return;
@@ -80,6 +89,8 @@ function setGallery(property) {
   if (propertyPhotoCaption) {
     propertyPhotoCaption.textContent = photos[0].label;
   }
+  propertyImage.style.cursor = "zoom-in";
+  propertyImage.addEventListener("click", () => openLightbox(0, property.title));
 
   if (!propertyGallery) {
     return;
@@ -101,19 +112,90 @@ function setGallery(property) {
   thumbButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const photoIndex = Number(button.dataset.photoIndex || 0);
-      const next = photos[photoIndex];
-      if (!next) {
-        return;
-      }
-
-      propertyImage.src = next.url;
-      propertyImage.alt = `${property.title} photo ${photoIndex + 1}`;
-      if (propertyPhotoCaption) {
-        propertyPhotoCaption.textContent = next.label;
-      }
-
-      thumbButtons.forEach((item) => item.classList.remove("is-active"));
-      button.classList.add("is-active");
+      openLightbox(photoIndex, property.title);
     });
   });
+}
+
+if (lightboxClose) {
+  lightboxClose.addEventListener("click", closeLightbox);
+}
+
+if (lightboxPrev) {
+  lightboxPrev.addEventListener("click", () => {
+    showLightboxPhoto(activePhotoIndex - 1);
+  });
+}
+
+if (lightboxNext) {
+  lightboxNext.addEventListener("click", () => {
+    showLightboxPhoto(activePhotoIndex + 1);
+  });
+}
+
+if (lightbox) {
+  lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox) {
+      closeLightbox();
+    }
+  });
+}
+
+document.addEventListener("keydown", (event) => {
+  if (!lightbox || lightbox.classList.contains("is-hidden")) {
+    return;
+  }
+
+  if (event.key === "Escape") {
+    closeLightbox();
+  }
+
+  if (event.key === "ArrowLeft") {
+    showLightboxPhoto(activePhotoIndex - 1);
+  }
+
+  if (event.key === "ArrowRight") {
+    showLightboxPhoto(activePhotoIndex + 1);
+  }
+});
+
+function openLightbox(index, title) {
+  if (!lightbox || activePhotos.length === 0) {
+    return;
+  }
+
+  lightbox.classList.remove("is-hidden");
+  lightbox.dataset.title = title;
+  document.body.style.overflow = "hidden";
+  showLightboxPhoto(index);
+}
+
+function closeLightbox() {
+  if (!lightbox) {
+    return;
+  }
+
+  lightbox.classList.add("is-hidden");
+  document.body.style.overflow = "";
+}
+
+function showLightboxPhoto(index) {
+  if (!lightboxImage || !lightboxCaption || activePhotos.length === 0) {
+    return;
+  }
+
+  if (index < 0) {
+    activePhotoIndex = activePhotos.length - 1;
+  } else if (index >= activePhotos.length) {
+    activePhotoIndex = 0;
+  } else {
+    activePhotoIndex = index;
+  }
+
+  const current = activePhotos[activePhotoIndex];
+  const title = lightbox && lightbox.dataset.title ? lightbox.dataset.title : "Property";
+
+  lightboxImage.src = current.url;
+  lightboxImage.alt = `${title} ${current.label}`;
+  lightboxCaption.textContent = current.label;
 }
